@@ -1,0 +1,1 @@
+Parabéns! Você conseguiu ler o arquivo e exibi-lo no console!

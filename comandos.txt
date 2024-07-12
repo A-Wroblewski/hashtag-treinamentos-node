@@ -1,0 +1,12 @@
+Para rodar um arquivo .js utilizando o node, use o comando:
+                                                        node "nome/caminho do arquivo"
+
+Para criar o arquivo package.json, use o comando:
+                                                npm init
+
+Para configurar o eslint, use os comandos:
+                                        npm install eslint --save-dev
+                                        npx eslint --init
+
+Para rodar o eslint, use o comando:
+                                npx eslint . --fix
