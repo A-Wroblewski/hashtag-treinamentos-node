@@ -1,9 +1,10 @@
 {
     "name": "hashtag-treinamentos-node",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "main.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "tsx watch \"aula 05 - typescript/fundamentos/main.ts\""
     },
     "author": "",
     "license": "ISC",
@@ -14,5 +15,9 @@
         "eslint": "^9.5.0",
         "globals": "^15.4.0",
         "typescript": "^5.5.4"
+    },
+    "dependencies": {
+        "@types/node": "^22.2.0",
+        "tsx": "^4.17.0"
     }
 }
