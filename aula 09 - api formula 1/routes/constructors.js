@@ -11,7 +11,7 @@ router.get('/', (request, response) => {
     response.send(arraySorter(createConstructorsArray()));
 });
 
-router.get('/placements/:position', (request, response) => {
+router.get('/placements/:position', (request, response, next) => {
     const sortedConstructorsArray = arraySorter(createConstructorsArray());
 
     const positionSchema = Joi.number().min(1).max(sortedConstructorsArray.length);
@@ -21,8 +21,12 @@ router.get('/placements/:position', (request, response) => {
     const { error } = positionSchema.validate(routePosition);
 
     if (error) {
-        response.status(400).send(error);
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 400;
+        myError.description = error.details;
+
+        return next(myError);
     }
 
     const constructorPosition = sortedConstructorsArray[routePosition - 1];

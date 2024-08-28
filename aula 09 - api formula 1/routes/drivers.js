@@ -13,18 +13,23 @@ router.get('/', (request, response) => {
     response.send(sortedDriversArray);
 });
 
-router.get('/:id', (request, response) => {
+router.get('/:id', (request, response, next) => {
     const routeID = request.params.id;
     const selectedDriver = sortedDriversArray.find(driver => driver.id === routeID);
 
     if (!selectedDriver) {
-        response.status(404).send('Piloto não encontrado');
+        const myError = new Error();
+
+        myError.httpStatusCode = 404;
+        myError.description = 'Piloto não encontrado';
+
+        return next(myError);
     }
 
     response.send(selectedDriver);
 });
 
-router.get('/placements/:position', (request, response) => {
+router.get('/placements/:position', (request, response, next) => {
     const positionSchema = Joi.number().min(1).max(sortedDriversArray.length);
 
     const routePosition = request.params.position;
@@ -32,8 +37,12 @@ router.get('/placements/:position', (request, response) => {
     const { error } = positionSchema.validate(routePosition);
 
     if (error) {
-        response.status(400).send(error);
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 400;
+        myError.description = error.details;
+
+        return next(myError);
     }
 
     const driverPosition = sortedDriversArray[routePosition - 1];
@@ -41,7 +50,7 @@ router.get('/placements/:position', (request, response) => {
     response.send(driverPosition);
 });
 
-router.post('', (request, response) => {
+router.post('/', (request, response, next) => {
     const driverSchema = Joi.object({
         name: Joi.string().required(),
         team: Joi.string().required(),
@@ -51,8 +60,12 @@ router.post('', (request, response) => {
     const { value, error } = driverSchema.validate(request.body, { abortEarly: false });
 
     if (error) {
-        response.status(400).send(error);
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 400;
+        myError.description = error.details;
+
+        return next(myError);
     }
 
     const newDriver = { ...value, id: randomUUID() };
@@ -64,7 +77,7 @@ router.post('', (request, response) => {
     response.send(newDriver);
 });
 
-router.put('/:id', (request, response) => {
+router.put('/:id', (request, response, next) => {
     const updatedDriverSchema = Joi.object({
         name: Joi.string(),
         team: Joi.string(),
@@ -74,16 +87,24 @@ router.put('/:id', (request, response) => {
     const { error } = updatedDriverSchema.validate(request.body, { abortEarly: false });
 
     if (error) {
-        response.status(400).send(error);
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 400;
+        myError.description = error.details;
+
+        return next(myError);
     }
 
     const routeID = request.params.id;
     const selectedDriver = sortedDriversArray.find(driver => driver.id === routeID);
 
     if (!selectedDriver) {
-        response.status(404).send('Piloto não encontrado');
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 404;
+        myError.description = 'Piloto não encontrado';
+
+        return next(myError);
     }
 
     for (const key in selectedDriver) {
@@ -97,13 +118,17 @@ router.put('/:id', (request, response) => {
     response.send(selectedDriver);
 });
 
-router.delete('/:id', (request, response) => {
+router.delete('/:id', (request, response, next) => {
     const routeID = request.params.id;
     const selectedDriver = sortedDriversArray.find(driver => driver.id === routeID);
 
     if (!selectedDriver) {
-        response.status(404).send('Piloto não encontrado');
-        return;
+        const myError = new Error();
+
+        myError.httpStatusCode = 404;
+        myError.description = 'Piloto não encontrado';
+
+        return next(myError);
     }
 
     const selectedDriverIndex = sortedDriversArray.indexOf(selectedDriver);
