@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "main": "main.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "tsx watch \"aula 05 - typescript/fundamentos/main.ts\""
+        "build": "tsc"
     },
     "author": "",
     "license": "ISC",
@@ -12,12 +11,12 @@
     "type": "module",
     "devDependencies": {
         "@eslint/js": "^9.5.0",
-        "eslint": "^9.5.0",
+        "@types/node": "^22.5.1",
+        "eslint": "^9.9.1",
         "globals": "^15.4.0",
         "typescript": "^5.5.4"
     },
     "dependencies": {
-        "@types/node": "^22.2.0",
         "express": "^4.19.2",
         "helmet": "^7.1.0",
         "joi": "^17.13.3",

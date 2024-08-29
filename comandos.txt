@@ -1,15 +1,19 @@
 Para rodar um arquivo .js utilizando o node:
-                                        node "nome/caminho do arquivo"
+    node "nome/caminho do arquivo"
 
 Para criar o arquivo package.json:
-                                npm init
+    npm init
 
 Para configurar o eslint:
-                        npm install eslint --save-dev
-                        npx eslint --init
+    npm install eslint --save-dev
+    npx eslint --init
 
 Para rodar o eslint:
-                    npx eslint . --fix
+    npx eslint . --fix
 
-Para não precisar ficar reiniciando o código em toda modificação:
-                                                                node --watch "nome/caminho do arquivo"
+Para não precisar ficar reiniciando o servidor em toda modificação:
+    node --watch "nome/caminho do arquivo"
+
+Para configurar o typescript:
+    npm i -D typescript @types/node
+    npx tsc --init
