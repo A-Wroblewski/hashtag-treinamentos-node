@@ -17,3 +17,7 @@ Para não precisar ficar reiniciando o servidor em toda modificação:
 Para configurar o typescript:
     npm i -D typescript @types/node
     npx tsc --init
+
+Para atualizar todas as dependências:
+    npx npm-check-updates -u
+    npm install
